@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -21,6 +22,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
 
 public class LoginPage {
 	
@@ -53,17 +55,7 @@ private By titleTextBox = By.xpath("//input[@id='new-title']");
 		this.driver = driver;
 		
 	}
-	//Methods
-	public void enterEmail(String email)
-	{
-		WebElement email_input = driver.findElement(Email);
-		//WebElement LoginLink = driver.findElement(Login);
-		//LoginLink.click();
-		email_input.sendKeys(email);
-		
-		
-
-	}
+	
 	public void enterPassword(String password)
 	{
 		WebElement password_input = driver.findElement(Password_Login);
@@ -199,6 +191,8 @@ private By titleTextBox = By.xpath("//input[@id='new-title']");
 		 {
 			 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 			 Assert.assertEquals(verficationOfTitle.getText(), title_value);
+			
+			 
 		 }
 		 else
 		 {
