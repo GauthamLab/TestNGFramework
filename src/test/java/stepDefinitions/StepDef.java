@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import crmp.org.pages.LoginPage;
+import crmp.org.pages.ProjectPulseLoginPage;
 import crmp.org.util.*;
 import crmp.org.pages.TitleMaster;
 import io.cucumber.java.After;
@@ -26,6 +27,7 @@ public class StepDef {
     private static WebDriver driver;
     private LoginPage loginPage;
     private TitleMaster titleMaster;
+    private ProjectPulseLoginPage ppLogin;
     private String workbookName;
     private String sheetName;
     private String testCaseNumber;
@@ -37,6 +39,7 @@ public class StepDef {
         driver = WebDriverSingleton.getDriver();
         loginPage = new LoginPage(driver); // Initializing LoginPage object
         titleMaster = new TitleMaster(driver);
+        ppLogin = new ProjectPulseLoginPage(driver);
     }
 
     @After
@@ -69,7 +72,7 @@ public class StepDef {
         }
         String username = testCaseData.get("username");
         String password = testCaseData.get("password");
-        titleMaster.enterUsernameAndPassword(username, password);
+        ppLogin.enterUsernameAndPassword(username, password);
     }
     @When("I retrieve data for test case {string}")
     public void i_retrieve_data_for_test_case(String testCaseNumber) {
@@ -83,7 +86,7 @@ public class StepDef {
 
     @Then("Click LoginButton")
     public void Click_LoginButton() {
-        titleMaster.selectLogin();
+        ppLogin.click_Login();
     }
 
     @Given("Select Branch {string}")
@@ -204,6 +207,11 @@ public class StepDef {
     public void i_load_the_excel_workbook_and_sheet(String workbookName, String sheetName) throws IOException {
         excelData = dataHelper.getExcelData(workbookName, sheetName);
        
+    }
+    
+    @Given("I am on Project Pulse Page")
+    public void I_am_on_Project_Pulse() {
+        driver.get("https://uat.ctleng.com/projectpulse/");
     }
 
   

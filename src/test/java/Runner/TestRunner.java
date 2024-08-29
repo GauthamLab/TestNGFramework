@@ -9,11 +9,11 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue = { "stepDefinitions" },
+        glue = { "stepDefinitions"},
         plugin = { "pretty", "html:target/cucumber-reports", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" },
         monochrome = true,
         publish = true,
-        tags = "@addMasterDryRun1"
+        tags = "@projectPulse"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 

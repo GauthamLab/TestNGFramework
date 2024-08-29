@@ -1,19 +1,20 @@
 #Author: gautham murugappan
 @addMaster
 Feature: Feature file to add master and delete the existing master
- @addMasterDryRun1
-Scenario: Load data from Excel workbook
+
+  @addMasterDryRun1
+  Scenario: Load data from Excel workbook
     Given I load the Excel workbook "C:\Users\sachina\git\TestNGFramework\src\test\resources\testData\TitleDataSheet.xlsx" and sheet "TitleMaster"
+
   @addMasterDryRun1
   Scenario Outline: Login to Application
-   
     Given I am on crm page
     Given Login with username and password for the test case "<TestCaseId>"
     Then Click LoginButton
 
     Examples: 
-       |TestCaseId|
-       |TC_001|
+      | TestCaseId |
+      | TC_001     |
 
   @addMasterDryRun
   Scenario Outline: INSERT
