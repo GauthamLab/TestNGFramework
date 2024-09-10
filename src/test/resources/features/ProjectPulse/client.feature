@@ -1,6 +1,6 @@
 #Author: gautham murugappan
-@projectPulse
-Feature: Feature file to Check login Functionality and Profile Section
+@projectPulseClient
+Feature: Feature file to Check Client Functionality 
 
   @PPLogin
   Scenario: Load data from Excel workbook
@@ -14,4 +14,9 @@ Feature: Feature file to Check login Functionality and Profile Section
 
     Examples: 
       | TestCaseId |
-      | TC_001     |
+      | TC_002     |
+ @PPClient     
+ Scenario: Navigate to Client section
+    Given Select clinet and enter field values 
+   
+      

@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="stepDefinitions.StepDef"/>
+      <class name="stepDefinitions"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

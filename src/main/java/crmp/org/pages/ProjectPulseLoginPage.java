@@ -20,6 +20,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -36,6 +37,35 @@ public class ProjectPulseLoginPage {
 	
 private String usernameXpath = "//input[@id='ngIOEid']";
 private String loginScreen = "//input[@id='search']";
+private String client = "//span[text()='Client']";
+private String clientNameXpath = "//input[@id='clientName']";
+private String clientNotesXpath = "//input[@id='clientNotes']";
+private String physicalAddress1Xpath = "//input[@id='physicalAddress1']";
+private String physicalAddress2Xpath = "//input[@id='physicalAddress2']";
+private String physicalStateXpath = "//input[@id='physicalState']";
+private String physicalCityXpath = "//input[@id='physicalCity']";
+private String physicalZipXpath = "//input[@id='physicalZip']";
+private String countryXpathXpath = "//select[@id='physicalCountry']/option[@value='6']";
+private String billingAddress1Xpath = "//input[@id='billingAddress1']";
+private String billingAddress2Xpath = "//input[@id='billingAddress2']";
+private String billingCountryXpath = "//select[@id='billingCountry']/option[@value='6']";
+private String billingStateXpath = "//input[@id='billingState']";
+private String billingCityXpath = "//input[@id='billingCity']";
+private String billingZipXpath = "//input[@id='billingZip']";
+private String TitleXpath = "//select[@id='title']/option[@value='Ms.']";
+private String firstNameXpath = "//input[@id='firstName']";
+private String lastNameXpath = "//input[@id='lastName']";
+private String phoneXpath = "//input[@id='phone']";
+private String emailXpath = "//input[@id='emailId']";
+private String mobileXpath = "//input[@id='mobile']";
+private String SaveXpath = "//button[@id='btnSave-lg']";
+private String SaveAndCreateXpath = "//button[@id='btnSaveCreateNew-lg']";
+private String clearXpath ="//button[@id='btnClear-lg']";
+private String CancelXpath ="//button[@id='btnCancel-lg']";
+
+
+
+	
 	
 	//COnsturctor
 	public ProjectPulseLoginPage(WebDriver driver)
@@ -52,8 +82,44 @@ private String loginScreen = "//input[@id='search']";
         captureScreenshot("enterUsernameAndPassword");
     }
 
-	
-	
+    public void selectCleint(String clientName ,String clientNotes ,
+    		                 String physicalAddress2 , String physicalAddress1 ,
+    		                 String physicalState, String physicalCity,
+    		                 String physicalZip, String billingAddress1,
+    		                 String billingAddress2, String billingState,
+    		                 String billingCity, String billingZip,
+    		                 String firstName, String lastName,
+    		                 String phone, String email,
+    		                 String mobile,String physicalcountry,String billingCountry) throws InterruptedException {
+    	WebElement clienticon = waitForElementToBeClickable(By.xpath(client));
+    	clienticon.click();
+    	Thread.sleep(5000);
+    	waitForElementToBeVisibleAndInteract(By.xpath(client),clientName);
+    	waitForElementToBeVisibleAndInteract(By.xpath(physicalAddress2Xpath),physicalAddress2);
+    	waitForElementToBeVisibleAndInteract(By.xpath(physicalAddress1Xpath),physicalAddress1);
+    	WebElement countryDropdown = driver.findElement(By.id("physicalCountry"));
+    	Select selectCountry = new Select(countryDropdown);
+    	selectCountry.selectByValue(physicalcountry);
+    	waitForElementToBeVisibleAndInteract(By.xpath(physicalStateXpath),physicalState);
+    	waitForElementToBeVisibleAndInteract(By.xpath(physicalCityXpath),physicalCity);
+    	waitForElementToBeVisibleAndInteract(By.xpath(physicalZipXpath),physicalZip);
+    	waitForElementToBeVisibleAndInteract(By.xpath(billingAddress1Xpath),billingAddress1);
+    	waitForElementToBeVisibleAndInteract(By.xpath(billingAddress2Xpath),billingAddress2);
+    	WebElement billingCountryDropdown = driver.findElement(By.id("billingCountry"));
+    	Select selectBillingCountry = new Select(billingCountryDropdown);
+    	selectBillingCountry.selectByValue(billingCountry);
+    	waitForElementToBeVisibleAndInteract(By.xpath(billingStateXpath),billingState);
+    	waitForElementToBeVisibleAndInteract(By.xpath(billingCityXpath),billingCity);
+    	waitForElementToBeVisibleAndInteract(By.xpath(billingZipXpath),billingZip);
+    	waitForElementToBeVisibleAndInteract(By.xpath(firstNameXpath),firstName);
+    	waitForElementToBeVisibleAndInteract(By.xpath(lastNameXpath),lastName);
+    	waitForElementToBeVisibleAndInteract(By.xpath(phoneXpath),phone);
+    	waitForElementToBeVisibleAndInteract(By.xpath(emailXpath),email);
+    	waitForElementToBeVisibleAndInteract(By.xpath(mobileXpath),mobile);
+    	
+    	
+    	
+    }
 	public void click_Login()
 	{
 		WebElement Login_Click = driver.findElement(Login_Button);
@@ -97,10 +163,22 @@ private String loginScreen = "//input[@id='search']";
             e.printStackTrace();
         }
     }
+    private void waitForElementToBeVisibleAndInteract(By locator, String textToSend) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.click();
+        element.sendKeys(textToSend);
+    }
+
  // Helper method to wait for an element to be clickable
     private WebElement waitForElementToBeClickable(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+    private void waitForElementToBeVisibleAndClick(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.click();
     }
 
     // Helper method to wait for an element to be visible
