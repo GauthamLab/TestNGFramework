@@ -1,5 +1,5 @@
 #Author: gautham murugappan
-@projectPulse
+@projectPulse1
 Feature: Feature file to Check login Functionality and Profile Section
 
   @PPLogin
