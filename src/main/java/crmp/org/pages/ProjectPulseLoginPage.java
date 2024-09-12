@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -83,42 +84,35 @@ private String CancelXpath ="//button[@id='btnCancel-lg']";
         captureScreenshot("enterUsernameAndPassword");
     }
 
-    public void selectCleint(String clientName ,String clientNotes ,
-    		                 String physicalAddress2 , String physicalAddress1 ,
-    		                 String physicalState, String physicalCity,
-    		                 String physicalZip, String billingAddress1,
-    		                 String billingAddress2, String billingState,
-    		                 String billingCity, String billingZip,
-    		                 String firstName, String lastName,
-    		                 String phone, String email,
-    		                 String mobile,String physicalcountry,String billingCountry) throws InterruptedException {
+
+    public void selectCleint(Map<String, String> map) throws InterruptedException {
     	//WebElement clienticon = waitForElementAndClickUsingJS(By.xpath(client));
     	//clienticon.click();
     	waitForElementAndClickUsingJS(By.xpath(client));
     	Thread.sleep(5000);
     	waitForElementAndClickUsingJS(By.xpath(clientButton));
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(client),clientName);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress2Xpath),physicalAddress2);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress1Xpath),physicalAddress1);
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(client),map.get("clientName"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress2Xpath),map.get("physicalAddress2"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress1Xpath),map.get("physicalAddress1"));
     	WebElement countryDropdown = driver.findElement(By.id("physicalCountry"));
     	Select selectCountry = new Select(countryDropdown);
-    	selectCountry.selectByValue(physicalcountry);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalStateXpath),physicalState);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalCityXpath),physicalCity);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalZipXpath),physicalZip);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingAddress1Xpath),billingAddress1);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingAddress2Xpath),billingAddress2);
+    	selectCountry.selectByValue(map.get("physicalcountry"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalStateXpath),map.get("physicalState"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalCityXpath), map.get("physicalCity"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalZipXpath), map.get("physicalZip"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingAddress1Xpath), map.get("billingAddress1"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingAddress2Xpath), map.get("billingAddress2"));
     	WebElement billingCountryDropdown = driver.findElement(By.id("billingCountry"));
     	Select selectBillingCountry = new Select(billingCountryDropdown);
-    	selectBillingCountry.selectByValue(billingCountry);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingStateXpath),billingState);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingCityXpath),billingCity);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingZipXpath),billingZip);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(firstNameXpath),firstName);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(lastNameXpath),lastName);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(phoneXpath),phone);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(emailXpath),email);
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(mobileXpath),mobile);
+    	selectBillingCountry.selectByValue( map.get("billingCountry"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingStateXpath), map.get("billingState"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingCityXpath),  map.get("billingCity"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingZipXpath), map.get("billingZip"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(firstNameXpath), map.get("firstName"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(lastNameXpath), map.get("lastName"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(phoneXpath), map.get("phone"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(emailXpath), map.get("email"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(mobileXpath), map.get("mobile"));
     	
     	
     	

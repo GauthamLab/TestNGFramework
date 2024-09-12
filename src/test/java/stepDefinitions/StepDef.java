@@ -219,35 +219,9 @@ public class StepDef {
         if (testCaseData == null) {
             throw new RuntimeException("Test case not found: " + testCaseNumber);
         }
-        String clientName = testCaseData.get("clientName");
-        String clientNotes = testCaseData.get("clientNotes ");
-        String physicalAddress1 = testCaseData.get("physicalAddress1");
-        String physicalAddress2 = testCaseData.get("physicalAddress2");
-        String physicalState = testCaseData.get("physicalState");
-        String physicalCity = testCaseData.get("physicalCity");
-        String physicalZip = testCaseData.get("physicalZip");
-        String billingAddress1 = testCaseData.get("billingAddress1");
-        String billingAddress2 = testCaseData.get("billingAddress2");
-        String billingCountry = testCaseData.get("billingCountry");
-        String physicalCountry = testCaseData.get("physicalCountry");
-        String billingState = testCaseData.get("billingState");
-        String billingCity = testCaseData.get("billingCity");
-        String billingZip = testCaseData.get("billingZip");
-        String firstName = testCaseData.get("firstName");
-        String lastName = testCaseData.get("lastName");
-        String phone = testCaseData.get("phone");
-        String email = testCaseData.get("email");
-        String mobile = testCaseData.get("mobile");
-        
-    	ppLogin.selectCleint(clientName,clientNotes,
-    			         physicalAddress1,physicalAddress2,
-    			         physicalState,physicalCity,
-    			         physicalZip,billingAddress1,
-    			         billingAddress2,
-    			         billingState,billingCity,
-    			         billingZip,firstName,lastName,
-    			         phone,email,
-    			         mobile,billingCountry,physicalCountry);
+      
+       // ppLogin.check(testCaseData);
+    	ppLogin.selectCleint(testCaseData);
     }
 
   
