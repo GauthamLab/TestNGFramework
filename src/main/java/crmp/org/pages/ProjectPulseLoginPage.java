@@ -89,14 +89,14 @@ private String CancelXpath ="//button[@id='btnCancel-lg']";
     	//WebElement clienticon = waitForElementAndClickUsingJS(By.xpath(client));
     	//clienticon.click();
     	waitForElementAndClickUsingJS(By.xpath(client));
-    	Thread.sleep(5000);
+    	//Thread.sleep(5000);
     	waitForElementAndClickUsingJS(By.xpath(clientButton));
-    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(client),map.get("clientName"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(clientNameXpath),map.get("clientName"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress2Xpath),map.get("physicalAddress2"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress1Xpath),map.get("physicalAddress1"));
     	WebElement countryDropdown = driver.findElement(By.id("physicalCountry"));
     	Select selectCountry = new Select(countryDropdown);
-    	selectCountry.selectByValue(map.get("physicalcountry"));
+    	selectCountry.selectByValue("6");
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalStateXpath),map.get("physicalState"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalCityXpath), map.get("physicalCity"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalZipXpath), map.get("physicalZip"));
@@ -104,7 +104,7 @@ private String CancelXpath ="//button[@id='btnCancel-lg']";
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingAddress2Xpath), map.get("billingAddress2"));
     	WebElement billingCountryDropdown = driver.findElement(By.id("billingCountry"));
     	Select selectBillingCountry = new Select(billingCountryDropdown);
-    	selectBillingCountry.selectByValue( map.get("billingCountry"));
+    	selectBillingCountry.selectByValue("6");
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingStateXpath), map.get("billingState"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingCityXpath),  map.get("billingCity"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingZipXpath), map.get("billingZip"));
@@ -113,6 +113,8 @@ private String CancelXpath ="//button[@id='btnCancel-lg']";
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(phoneXpath), map.get("phone"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(emailXpath), map.get("email"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(mobileXpath), map.get("mobile"));
+    	waitForElementAndClickUsingJS(By.xpath(SaveXpath));
+    	
     	
     	
     	
@@ -205,7 +207,7 @@ private String CancelXpath ="//button[@id='btnCancel-lg']";
  // Helper method to wait for an element and click using JavaScript Executor
     private void waitForElementAndClickUsingJS(By locator) {
         // Wait for the page to be fully loaded
-        new WebDriverWait(driver, Duration.ofSeconds(100)).until(
+        new WebDriverWait(driver, Duration.ofSeconds(300)).until(
             webDriver -> ((JavascriptExecutor) webDriver)
                 .executeScript("return document.readyState")
                 .equals("complete")

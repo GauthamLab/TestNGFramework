@@ -3,8 +3,9 @@
 Feature: Feature file to Check Client Functionality 
 
   @PPLogin
+  #C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData
   Scenario: Load data from Excel workbook
-    Given I load the Excel workbook "E:\AutomationWorkSpace\ProjectPulse\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Login"
+    Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Login"
 
   @PPLogin
   Scenario Outline: Login to Application
