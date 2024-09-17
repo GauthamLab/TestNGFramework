@@ -74,11 +74,21 @@ public class StepDef {
         String password = testCaseData.get("password");
         ppLogin.enterUsernameAndPassword(username, password);
     }
+    @When("Enter the values to the fields {string}")
+    public void UpdateFields(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+       
+        ppLogin.updateClientData(testCaseDataUpdate);
+    }
+    
     @When("I retrieve data for test case {string}")
-    public void i_retrieve_data_for_test_case(String testCaseNumber) {
-        Map<String, String> testCaseData = excelData.get(testCaseNumber);
+    public void i_retrieve_data_for_test_case(String TestCaseId) {
+        Map<String, String> testCaseData = excelData.get(TestCaseId);
         if (testCaseData == null) {
-            throw new RuntimeException("Test case not found: " + testCaseNumber);
+            throw new RuntimeException("Test case not found: " + TestCaseId);
         }
         System.out.println("Title: " + testCaseData.get("Title"));
         System.out.println("Age: " + testCaseData.get("age"));
@@ -213,8 +223,8 @@ public class StepDef {
     public void I_am_on_Project_Pulse() {
         driver.get("https://uat.ctleng.com/projectpulse/");
     }
-    @Given("Select clinet and enter field values")
-    public void I_select_Client() throws InterruptedException {
+    @Given("Select clinet and enter field values {string}")
+    public void I_select_Client(String TestCaseId) throws InterruptedException {
     	Map<String, String> testCaseData = excelData.get(testCaseNumber);
         if (testCaseData == null) {
             throw new RuntimeException("Test case not found: " + testCaseNumber);
@@ -223,7 +233,18 @@ public class StepDef {
        // ppLogin.check(testCaseData);
     	ppLogin.selectCleint(testCaseData);
     }
-
+    
+    
+    @Given("Select client from list {string}")
+    public void I_select_Client_from_list(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("clientName");
+    	ppLogin.selectClientFromList(value);
+    }
   
 
 

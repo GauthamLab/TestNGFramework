@@ -1,9 +1,8 @@
-#Author: gautham murugappan
+#Author: gautham murugappan  #C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData
 @projectPulseClient
-Feature: Feature file to Check Client Functionality 
+Feature: Feature file to Check Client Functionality
 
   @PPLogin
-  #C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData
   Scenario: Load data from Excel workbook
     Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Login"
 
@@ -15,9 +14,20 @@ Feature: Feature file to Check Client Functionality
 
     Examples: 
       | TestCaseId |
+      | TC_001     |
+
+  @PPClient
+  Scenario Outline: Navigate to Client section and update
+    Given Select clinet and enter field values "<TestCaseId>"
+
+    Examples: 
+      | TestCaseId |
       | TC_002     |
- @PPClient     
- Scenario: Navigate to Client section
-    Given Select clinet and enter field values 
-   
-      
+
+  Scenario Outline: Navigate to Client section and select update and close
+    Given Select client from list "<TestCaseId>"
+    And Enter the values to the fields "<TestCaseId>"
+
+    Examples: 
+      | TestCaseId |
+      | TC_003     |

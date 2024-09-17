@@ -64,8 +64,8 @@ private String SaveXpath = "//button[@id='btnSave-lg']";
 private String SaveAndCreateXpath = "//button[@id='btnSaveCreateNew-lg']";
 private String clearXpath ="//button[@id='btnClear-lg']";
 private String CancelXpath ="//button[@id='btnCancel-lg']";
-
-
+private String ClientList = "//td[@class='align-middle white-space-nowrap deadline ps-3 name sorting_1']//a[contains(text(),'CLIENT')]";
+private String cName;
 
 	
 	
@@ -92,6 +92,7 @@ private String CancelXpath ="//button[@id='btnCancel-lg']";
     	//Thread.sleep(5000);
     	waitForElementAndClickUsingJS(By.xpath(clientButton));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(clientNameXpath),map.get("clientName"));
+    	cName = map.get("clientName");
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress2Xpath),map.get("physicalAddress2"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress1Xpath),map.get("physicalAddress1"));
     	WebElement countryDropdown = driver.findElement(By.id("physicalCountry"));
@@ -114,10 +115,55 @@ private String CancelXpath ="//button[@id='btnCancel-lg']";
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(emailXpath), map.get("email"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(mobileXpath), map.get("mobile"));
     	waitForElementAndClickUsingJS(By.xpath(SaveXpath));
+    	Thread.sleep(60000);
+    	 captureScreenshot("Saved Profile");
     	
     	
     	
     	
+    }
+    public void updateClientData(Map<String, String> map) throws InterruptedException {
+    	//WebElement clienticon = waitForElementAndClickUsingJS(By.xpath(client));
+    	//clienticon.click();
+    	waitForElementAndClickUsingJS(By.xpath(client));
+    	//Thread.sleep(5000);
+    	waitForElementAndClickUsingJS(By.xpath(clientButton));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(clientNameXpath),map.get("clientName"));
+    	cName = map.get("clientName");
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress2Xpath),map.get("physicalAddress2"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress1Xpath),map.get("physicalAddress1"));
+    	WebElement countryDropdown = driver.findElement(By.id("physicalCountry"));
+    	Select selectCountry = new Select(countryDropdown);
+    	selectCountry.selectByValue("6");
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalStateXpath),map.get("physicalState"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalCityXpath), map.get("physicalCity"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalZipXpath), map.get("physicalZip"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingAddress1Xpath), map.get("billingAddress1"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingAddress2Xpath), map.get("billingAddress2"));
+    	WebElement billingCountryDropdown = driver.findElement(By.id("billingCountry"));
+    	Select selectBillingCountry = new Select(billingCountryDropdown);
+    	selectBillingCountry.selectByValue("6");
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingStateXpath), map.get("billingState"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingCityXpath),  map.get("billingCity"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(billingZipXpath), map.get("billingZip"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(firstNameXpath), map.get("firstName"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(lastNameXpath), map.get("lastName"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(phoneXpath), map.get("phone"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(emailXpath), map.get("email"));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(mobileXpath), map.get("mobile"));
+    	waitForElementAndClickUsingJS(By.xpath(SaveXpath));
+    	Thread.sleep(60000);
+    	 captureScreenshot("Saved Profile");
+    	
+    	
+    	
+    	
+    }
+    public void selectClientFromList(String cname)
+    {
+    	String name = cname;
+    	String updatedClientList = ClientList.replace("CLIENT", name);
+    	waitForElementAndClickUsingJS(By.xpath(updatedClientList));
     }
 	public void click_Login()
 	{
