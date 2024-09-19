@@ -65,6 +65,14 @@ private String SaveAndCreateXpath = "//button[@id='btnSaveCreateNew-lg']";
 private String clearXpath ="//button[@id='btnClear-lg']";
 private String CancelXpath ="//button[@id='btnCancel-lg']";
 private String ClientList = "//td[@class='align-middle white-space-nowrap deadline ps-3 name sorting_1']//a[contains(text(),'CLIENT')]";
+private String searchXpath ="//div[@id='clientTableContent_filter']//input[@type='search']";
+private String status = "//input[contains(@id, 'clientIsActive')]";
+private String YesButton = "//button[@id='btnStatusConfirmation-lg']";
+private String confirmationPane = "//span[@id='crpToastCustomSuccessMsg' and text()='Status changed successfully']";
+private String deleteIcon = "//a[contains(@href, 'funDelete(')]";
+private String YesDeleteButton = "//button[@id='btnDeleteConfirmation-lg']";
+//searchBar.sendKeys("your search text");
+
 private String cName;
 
 	
@@ -115,7 +123,7 @@ private String cName;
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(emailXpath), map.get("email"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(mobileXpath), map.get("mobile"));
     	waitForElementAndClickUsingJS(By.xpath(SaveXpath));
-    	Thread.sleep(60000);
+    	//Thread.sleep(60000);
     	 captureScreenshot("Saved Profile");
     	
     	
@@ -125,9 +133,9 @@ private String cName;
     public void updateClientData(Map<String, String> map) throws InterruptedException {
     	//WebElement clienticon = waitForElementAndClickUsingJS(By.xpath(client));
     	//clienticon.click();
-    	waitForElementAndClickUsingJS(By.xpath(client));
+    	//waitForElementAndClickUsingJS(By.xpath(client));
     	//Thread.sleep(5000);
-    	waitForElementAndClickUsingJS(By.xpath(clientButton));
+    	//waitForElementAndClickUsingJS(By.xpath(clientButton));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(clientNameXpath),map.get("clientName"));
     	cName = map.get("clientName");
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(physicalAddress2Xpath),map.get("physicalAddress2"));
@@ -152,8 +160,8 @@ private String cName;
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(emailXpath), map.get("email"));
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(mobileXpath), map.get("mobile"));
     	waitForElementAndClickUsingJS(By.xpath(SaveXpath));
-    	Thread.sleep(60000);
-    	 captureScreenshot("Saved Profile");
+    	Thread.sleep(6000);
+    	 captureScreenshot("updated Profile");
     	
     	
     	
@@ -162,8 +170,26 @@ private String cName;
     public void selectClientFromList(String cname)
     {
     	String name = cname;
+    	
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(searchXpath),name);
     	String updatedClientList = ClientList.replace("CLIENT", name);
     	waitForElementAndClickUsingJS(By.xpath(updatedClientList));
+    	
+    }
+    public void selectClientBySearch(String cname) throws InterruptedException
+    {
+    	String name = cname;
+    	
+    	//waitForElementAndClickUsingJS(By.xpath(searchXpath));
+    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(searchXpath),name);
+    	String updatedClientList = ClientList.replace("CLIENT", name);
+    	waitForElementToBeClickable(By.xpath(updatedClientList));
+    	waitForElementAndClickUsingJS(By.xpath(status));
+    	waitForElementAndClickUsingJS(By.xpath(YesButton));
+    	waitForElementAndClickUsingJS(By.xpath(confirmationPane));
+    	waitForElementAndClickUsingJS(By.xpath(YesDeleteButton));
+    	waitForElementAndClickUsingJS(By.xpath(deleteIcon));
+    	captureScreenshot("Deleted Sucessfully");
     }
 	public void click_Login()
 	{
@@ -233,6 +259,7 @@ private String cName;
         jsExecutor.executeScript("arguments[0].click();", element);
 
         // Send text to the element (after clicking)
+        element.clear();
         element.sendKeys(textToSend);
     }
 

@@ -31,3 +31,9 @@ Feature: Feature file to Check Client Functionality
     Examples: 
       | TestCaseId |
       | TC_003     |
+
+  Scenario Outline: Search For certain client and chnage the status from active to non active
+    Given Select client by search and change active to non active and delete the record "<TestCaseId>"
+    Examples: 
+      | TestCaseId |
+      | TC_003     |

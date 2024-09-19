@@ -221,7 +221,7 @@ public class StepDef {
     
     @Given("I am on Project Pulse Page")
     public void I_am_on_Project_Pulse() {
-        driver.get("https://uat.ctleng.com/projectpulse/");
+        driver.get("https://uat.ctleng.com/sachinalite/signin.do");
     }
     @Given("Select clinet and enter field values {string}")
     public void I_select_Client(String TestCaseId) throws InterruptedException {
@@ -245,7 +245,17 @@ public class StepDef {
         String value = testCaseDataUpdate.get("clientName");
     	ppLogin.selectClientFromList(value);
     }
-  
+    @Given("Select client by search and change active to non active and delete the record {string}")
+    public void I_select_Client_by_Search(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("clientName");
+    	ppLogin.selectClientBySearch(value);
+    }
+   
 
 
 }
