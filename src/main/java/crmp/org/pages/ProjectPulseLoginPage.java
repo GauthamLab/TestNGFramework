@@ -74,9 +74,31 @@ private String YesDeleteButton = "//button[@id='btnDeleteConfirmation-lg']";
 //searchBar.sendKeys("your search text");
 
 private String cName;
+//Location xpath starts
+private String location_userIcon = "//a[@id='navbarDropdownUser']";
+private String location_location = "//a[contains(text(),'Location')]";
+private String location_createnewlocationButton = "//button[contains(@onclick, 'funCreateLocation()')]";
+private String location_locationtextBox = "//input[@id='locationName']";
+private String location_codetextBox = "//input[@id='code']";
+private String location_add1textBox = "//input[@id='addressOne']";
+private String location_add2textBox = "//input[@id='addressTwo']";
+private String location_locationCountryXpath = "//select[@id='countryId']/option[@value='6']";
+private String location_locationstatetextBox = "//input[@id='state']";
+private String location_locationCity = "//input[@id='city']";
+private String location_countryTextBox = "//input[@id='county']";
+private String location_zip = "//input[@id='zip']";
+private String location_salesTax = "//input[@id='salesTax']";
+private String location_overhead_burdenRate = "//input[@id='ohBurdenRate']";
+private String location_saveButton = "//input[@value='Save']";
 
-	
-	
+//Employee Xapth 
+private String Employee_employeeIcon = "//a[contains(@class, 'nav-link') and contains(@href, 'employeecenter.do')]";
+private String Employee_createNewEmployeeButton = "//button[contains(@onclick, 'funCreateEmployee()')]";
+private String Employee_firstName = "//input[@id='firstName']";
+private String Employee_lastName = "//input[@id='lastName']";
+private String Employee_genderDropDown = "//select[@id='gender']/option[@value='0']";
+private String Employee_locationDropDown = "//select[@id='locationId']/option[@value='1']";
+private String Employee_lastName = "//input[@id='lastName']";
 	//COnsturctor
 	public ProjectPulseLoginPage(WebDriver driver)
 	{
