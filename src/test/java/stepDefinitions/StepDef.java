@@ -9,6 +9,7 @@ import io.cucumber.java.AfterAll;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -50,6 +51,7 @@ public class StepDef {
         }
        
     }
+    
   
     @AfterStep
     public void afterEachStep(Scenario scenario) {
@@ -98,6 +100,7 @@ public class StepDef {
     public void Click_LoginButton() {
         ppLogin.click_Login();
     }
+    
 
     @Given("Select Branch {string}")
     public void Select_Branch(String branch) {
@@ -235,15 +238,15 @@ public class StepDef {
     }
     
     
-    @Given("Select client from list {string}")
-    public void I_select_Client_from_list(String TestCaseId) throws InterruptedException {
+    @Given("Select record by search {string}")
+    public void select_record_by_search(String TestCaseId) throws InterruptedException {
        // ppLogin.check(testCaseData);
     	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
         if (testCaseDataUpdate == null) {
             throw new RuntimeException("Test casfe not found: " + testCaseNumber);
         }
         String value = testCaseDataUpdate.get("clientName");
-    	ppLogin.selectClientFromList(value);
+    	ppLogin.selectRecordBySearch(value);
     }
     @Given("Select client by search and change active to non active and delete the record {string}")
     public void I_select_Client_by_Search(String TestCaseId) throws InterruptedException {
@@ -255,7 +258,100 @@ public class StepDef {
         String value = testCaseDataUpdate.get("clientName");
     	ppLogin.selectClientBySearch(value);
     }
-   
-
+    @Given("Select location and enter field values {string}")
+    public void I_select_location(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+      
+       // ppLogin.check(testCaseData);
+    	ppLogin.selectlocation(testCaseData);
+    }
+    @When("Update the location values to the fields {string}")
+    public void UpdateFields_location(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+       
+        ppLogin.updateLocationData(testCaseDataUpdate);
+    }
+    @Given("Select location by search and change active to non active and delete the record {string}")
+    public void I_select_location_by_Search(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("location");
+    	ppLogin.selectLocationBySearch(value);
+    }
+    @Given("Select record by search location {string}")
+    public void select_record_by_search_loc(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("clientName");
+    	ppLogin.selectRecordBySearch_loc(value);
+    }
+    @Then("Select Save Button")
+    public void Click_SaveButton() {
+        ppLogin.click_Save();
+    }
+    @Then("Select Save Button on employee screen")
+    public void Click_SaveButtonemployee() {
+        ppLogin.click_employeeSave();
+    }
+    
+    @And("Select Update button")
+    public void Click_UpdateButton() {
+        ppLogin.click_Update();
+    }
+    @And("Select employee Update button")
+    public void Click_EmpUpdateButton() {
+        ppLogin.click_emp_Update();
+    }
+    @Given("Select employee and enter field values {string}")
+    public void I_select_employee(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+      
+       // ppLogin.check(testCaseData);
+    	ppLogin.selectemployee(testCaseData);
+    }
+    @Given("Select record by search employee {string}")
+    public void select_record_by_search_emp(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("firstName");
+    	ppLogin.selectRecordBySearch_emp(value);
+    }
+    @When("Update the emp values to the fields {string}")
+    public void UpdateFields_emp(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+       
+        ppLogin.updateEmpData(testCaseDataUpdate);
+    }
+    @Given("Select employee by search and change active to non active and delete the record {string}")
+    public void I_select_employee_by_Search(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("firstName");
+    	ppLogin.selectRecordBySearch_emp(value);
+    }
 
 }

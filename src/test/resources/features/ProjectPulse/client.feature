@@ -4,7 +4,7 @@ Feature: Feature file to Check Client Functionality
 
   @PPLogin
   Scenario: Load data from Excel workbook
-    Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Login"
+    Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Profile"
 
   @PPLogin
   Scenario Outline: Login to Application
@@ -25,7 +25,7 @@ Feature: Feature file to Check Client Functionality
       | TC_002     |
 
   Scenario Outline: Navigate to Client section and select update and close
-    Given Select client from list "<TestCaseId>"
+    Given Select record by search "<TestCaseId>"
     And Enter the values to the fields "<TestCaseId>"
 
     Examples: 

@@ -13,7 +13,7 @@ import org.testng.annotations.DataProvider;
         plugin = { "pretty", "html:target/cucumber-reports", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" },
         monochrome = true,
         publish = true,
-        tags = "@projectPulseClient"
+        tags = "@projectPulseEmployee"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 

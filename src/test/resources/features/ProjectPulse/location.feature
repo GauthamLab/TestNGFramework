@@ -1,10 +1,10 @@
 #Author: gautham murugappan  #C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData
-@projectPulseClient
+@projectPulseLocation
 Feature: Feature file to Check Client Functionality
 
   @PPLogin
   Scenario: Load data from Excel workbook
-    Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Login"
+    Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "location"
 
   @PPLogin
   Scenario Outline: Login to Application
@@ -18,22 +18,24 @@ Feature: Feature file to Check Client Functionality
 
   @PPClient
   Scenario Outline: Navigate to Location section and add location
-    Given Select clinet and enter field values "<TestCaseId>"
+    Given Select location and enter field values "<TestCaseId>"
+    Then Select Save Button
 
     Examples: 
       | TestCaseId |
       | TC_002     |
 
   Scenario Outline: Navigate to Client section and select update and close
-    Given Select client from list "<TestCaseId>"
-    And Enter the values to the fields "<TestCaseId>"
+    Given Select record by search location "<TestCaseId>"
+    And Update the location values to the fields "<TestCaseId>"
+    And Select Update button
 
     Examples: 
       | TestCaseId |
       | TC_003     |
 
   Scenario Outline: Search For certain client and chnage the status from active to non active
-    Given Select client by search and change active to non active and delete the record "<TestCaseId>"
+    Given Select location by search and change active to non active and delete the record "<TestCaseId>"
     Examples: 
       | TestCaseId |
       | TC_003     |
