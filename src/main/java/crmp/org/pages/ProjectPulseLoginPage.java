@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -40,12 +41,16 @@ public class ProjectPulseLoginPage {
 	//Login page Locator
 	private By Login = By.xpath("//a[text()='Login']");
 	private String passwordXpath = "//input[@id='ngPdwIO']";
+	private String passwordXapth_Updated = "//input[@id='usrCheckKey']";
 	private By Login_Button = By.xpath("//input[@id='btnLogin-2']");
+	private By Click_Me = By.xpath("//button[contains(@onclick, 'funValidateEasyLogin()')]");
+	private String OwnerLink = "//td[contains(@class, 'lastName') and contains(@onclick, 'funEasyLogin')][1]";
 	
 private String usernameXpath = "//input[@id='ngIOEid']";
 private String loginScreen = "//input[@id='searchByProject-md']";
 private String client = "//span[text()='Client']";
 private String clientButton = "//button[contains(@onclick, 'funCreateClient()')]";
+
 private String clientNameXpath = "//input[@id='clientName']";
 private String clientNotesXpath = "//input[@id='clientNotes']";
 private String physicalAddress1Xpath = "//input[@id='physicalAddress1']";
@@ -126,7 +131,7 @@ private String Employee_billRate = "//input[@id='billRate']";
 private String Employee_Save = "//button[@id='btnSave-lg']";
 private String Employee_list_link = "//td[@class='align-middle white-space-nowrap deadline ps-3 name sorting_1']//a[contains(text(),'LOCATION')]";
 private String Employee_updateButton = "//button[@id='btnSave-lg']";
-private String Employee_status = "//input[contains(@id, 'employeeIsActive-1')]";
+private String Employee_status = "//input[contains(@id, 'employeeIsActive')]";
 //Xpath for Expense
 private String Expense_Icon = "//a[contains(@class, 'nav-link') and contains(@href, 'expensetypecenter.do')]";
 private String Expense_createNewExpenseButton = "//button[contains(@onclick, 'funCreateExpenseType()')]";
@@ -159,6 +164,13 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
         WebElement usernameField = waitForElementToBeVisible(By.xpath(usernameXpath));
         WebElement passwordField = waitForElementToBeVisible(By.xpath(passwordXpath));
         usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        captureScreenshot("captured");
+    }
+    public void enterPassword(String password) {
+    //    WebElement usernameField = waitForElementToBeVisible(By.xpath(usernameXpath));
+        WebElement passwordField = waitForElementToBeVisible(By.xpath(passwordXapth_Updated));
+     //   usernameField.sendKeys(username);
         passwordField.sendKeys(password);
         captureScreenshot("captured");
     }
@@ -244,7 +256,7 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
     	
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(searchXpath),name);
     	String updatedClientList = ClientList.replace("CLIENT", name);
-    	waitForElementAndClickUsingJS(By.xpath(updatedClientList));
+    	waitForElementToBeClickable(By.xpath(updatedClientList));
     	
     }
     public void selectClientBySearch(String cname) throws InterruptedException
@@ -273,6 +285,45 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
 		// WebElement successPromptElement = waitForElementToBeVisible(By.xpath(loginScreen));
 		// Assert.assertTrue(successPromptElement.isDisplayed(), "Login Screen Loaded");
 	        captureScreenshot("Login Screen Loaded");
+		
+
+	}
+	public void click_ClickMe()
+	{
+		WebElement Login_Click = driver.findElement(Click_Me);
+	//	WebElement MyAccount = driver.findElement(myAccount);
+		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(myAccount));
+		//MyAccount.click();
+		Login_Click.click();
+		// WebElement successPromptElement = waitForElementToBeVisible(By.xpath(loginScreen));
+		// Assert.assertTrue(successPromptElement.isDisplayed(), "Login Screen Loaded");
+	        captureScreenshot("Login Screen Loaded");
+		
+
+	}
+	public void select_owner()
+	{
+		
+		
+		String originalWindow = driver.getWindowHandle();
+		waitForElementAndClickUsingJS(By.xpath(OwnerLink));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+		// Get all the window handles
+		Set<String> allWindows = driver.getWindowHandles();
+
+		// Switch to the new tab
+		for (String windowHandle : allWindows) {
+		    if (!windowHandle.equals(originalWindow)) {
+		        driver.switchTo().window(windowHandle);
+		        break;
+		    }
+		}
+	        captureScreenshot("Login Screen Loaded");
+	     // Example action in the new tab
+	        System.out.println("New tab title: " + driver.getTitle());
 		
 
 	}
@@ -356,7 +407,8 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
       //  element.clear();
        // element.sendKeys(textToSend);
         element.sendKeys(Keys.TAB);
-        element.wait(10000);
+        element.sendKeys(Keys.ENTER);
+       // element.wait(10000);
     }
 
 
@@ -524,11 +576,11 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
     	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(searchXpath),name);
     	String updatedClientList = location_locationtList.replace("LOCATION", name);
     	waitForElementToBeClickable(By.xpath(updatedClientList));
-    	waitForElementAndClickUsingJS(By.xpath(Employee_status));
+    	waitForElementAndClickUsingJS(By.xpath(location_status));
     	waitForElementAndClickUsingJS(By.xpath(YesButton));
     	waitForElementAndClickUsingJS(By.xpath(confirmationPane));
     	waitForElementAndClickUsingJS(By.xpath(YesDeleteButton));
-    	waitForElementAndClickUsingJS(By.xpath(deleteIcon));
+    	//waitForElementAndClickUsingJS(By.xpath(deleteIcon));
     	captureScreenshot("Deleted Sucessfully");
     }
 	 public void selectRecordBySearch_loc(String location)
@@ -537,7 +589,8 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
 	    	
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(searchXpath),name);
 	    	String updatedClientList = location_locationtList.replace("LOCATION", name);
-	    	waitForElementToBeClickable(By.xpath(updatedClientList));
+	    	waitForElementAndClickUsingJS(By.xpath(updatedClientList));
+	    	
 	    	
 	    }
 	 public void selectRecordBySearch_emp(String location)
@@ -546,8 +599,30 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
 	    	
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(searchXpath),name);
 	    	String updatedEmpList = Employee_list_link.replace("LOCATION", name);
-	    	waitForElementToBeClickable(By.xpath(updatedEmpList));
+	    	waitForElementAndClickUsingJS(By.xpath(updatedEmpList));
 	    	
+	    	
+	    	
+	    }
+	 public void activeToinActive_emp()
+	    {
+	    	
+	    	waitForElementAndClickUsingJS(By.xpath(Employee_status));
+	    	waitForElementAndClickUsingJS(By.xpath(YesButton));
+	    	waitForElementAndClickUsingJS(By.xpath(confirmationPane));
+	    	waitForElementAndClickUsingJS(By.xpath(YesDeleteButton));
+	    	//waitForElementAndClickUsingJS(By.xpath(deleteIcon));
+	    	captureScreenshot("Deleted Sucessfully");
+	    }
+	 public void activeToinActive_loc()
+	    {
+	    	
+	    	waitForElementAndClickUsingJS(By.xpath(Employee_status));
+	    	waitForElementAndClickUsingJS(By.xpath(YesButton));
+	    	waitForElementAndClickUsingJS(By.xpath(confirmationPane));
+	    	waitForElementAndClickUsingJS(By.xpath(YesDeleteButton));
+	    	//waitForElementAndClickUsingJS(By.xpath(deleteIcon));
+	    	captureScreenshot("Deleted Sucessfully");
 	    }
 	 public void click_Save()
 		{
@@ -601,11 +676,18 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
 //	    	Select emp_countryDropdown1 = new Select(emp_countryDropdown);
 //	    	emp_countryDropdown1.selectByValue("0");
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_statetTextBox),map.get("state"));
+	    	Thread.sleep(5000);
 	    	waitForElementToBeVisibleAndInteractUsingJSTabKey(By.xpath(Employee_statetTextBox),map.get("state"));
+	    	
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_locationCity),map.get("city"));
+	    	Thread.sleep(5000);
 	    	waitForElementToBeVisibleAndInteractUsingJSTabKey(By.xpath(Employee_statetTextBox),map.get("city"));
+	    	
 	    	//waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_countryTextBox), map.get("country"));
-	    	waitForElementToBeVisibleAndInteractUsingJSTabKey(By.xpath(Employee_statetTextBox),map.get("country"));
+	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_countryTextBox),map.get("country"));
+	    	Thread.sleep(5000);
+	    	waitForElementToBeVisibleAndInteractUsingJSTabKey(By.xpath(Employee_countryTextBox),map.get("country"));
+	    	//Thread.sleep(5000);
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_zip), map.get("zip"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_billRate), map.get("billrate"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_extn), map.get("extn"));
@@ -627,11 +709,11 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
 	 public void updateEmpData(Map<String, String> map) throws InterruptedException {
 		//WebElement clienticon = waitForElementAndClickUsingJS(By.xpath(client));
 	    	//clienticon.click();
-	    	waitForElementAndClickUsingJS(By.xpath(Employee_userIcon));
-	    	waitForElementAndClickUsingJS(By.xpath(Employee_employeeIcon));
+	    	//waitForElementAndClickUsingJS(By.xpath(Employee_userIcon));
+	    	//waitForElementAndClickUsingJS(By.xpath(Employee_employeeIcon));
 	    	//Thread.sleep(5000);
 	    	
-	    	waitForElementAndClickUsingJS(By.xpath(Employee_createNewEmployeeButton));
+	    	//waitForElementAndClickUsingJS(By.xpath(Employee_createNewEmployeeButton));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_jobTitle), map.get("title"));
 	    	WebElement countryDropdown = driver.findElement(By.xpath(Employee_countryDropDown));
 	    	Select emp_countryDropdown = new Select(countryDropdown);
@@ -657,15 +739,25 @@ private String Staff_Save = "//button[@id='btnSave-lg']";
 //	    	WebElement emp_countryDropdown = driver.findElement(By.xpath(Employee_countryDropDown));
 //	    	Select emp_countryDropdown1 = new Select(emp_countryDropdown);
 //	    	emp_countryDropdown1.selectByValue("0");
-	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_locationCity),map.get("city"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_statetTextBox),map.get("state"));
-	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_countryTextBox), map.get("country"));
+	    	Thread.sleep(5000);
+	    	waitForElementToBeVisibleAndInteractUsingJSTabKey(By.xpath(Employee_statetTextBox),map.get("state"));
+	    	//Thread.sleep(50000);
+	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_locationCity),map.get("city"));
+	    	Thread.sleep(5000);
+	    	waitForElementToBeVisibleAndInteractUsingJSTabKey(By.xpath(Employee_statetTextBox),map.get("city"));
+	    	//Thread.sleep(50000);
+	    	//waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_countryTextBox), map.get("country"));
+	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_countryTextBox),map.get("country"));
+	    	Thread.sleep(5000);
+	    	waitForElementToBeVisibleAndInteractUsingJSTabKey(By.xpath(Employee_countryTextBox),map.get("country"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_zip), map.get("zip"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_billRate), map.get("billrate"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_extn), map.get("extn"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_mobile), map.get("mobile"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_payRate), map.get("payrate"));
 	    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_emailId), map.get("email"));
+	    	
 	    	
 	    	//waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Employee_Save), map.get("payrate"));
 	    	

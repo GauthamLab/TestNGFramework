@@ -36,6 +36,7 @@ Feature: Feature file to Check Client Functionality
 
   Scenario Outline: Search For certain client and chnage the status from active to non active
     Given Select location by search and change active to non active and delete the record "<TestCaseId>"
+     And   Make loc activeToInactive and Delete
     Examples: 
       | TestCaseId |
       | TC_003     |

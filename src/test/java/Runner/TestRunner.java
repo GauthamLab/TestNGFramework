@@ -13,14 +13,14 @@ import org.testng.annotations.DataProvider;
         plugin = { "pretty", "html:target/cucumber-reports", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" },
         monochrome = true,
         publish = true,
-        tags = "@projectPulseEmployee"
+        tags = "@projectPulseProject"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
 //    @BeforeClass
 //    public void setup() {
 //        WebDriverSingleton.getDriver();  // Initialize the driver
-//    }
+//    }/
 //
 //    @AfterClass
 //    public void tearDown() {

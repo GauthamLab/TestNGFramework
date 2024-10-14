@@ -1,9 +1,12 @@
 package stepDefinitions;
 
 import crmp.org.pages.LoginPage;
+import crmp.org.pages.Project;
 import crmp.org.pages.ProjectPulseLoginPage;
 import crmp.org.util.*;
 import crmp.org.pages.TitleMaster;
+import crmp.org.pages.expense;
+import crmp.org.pages.staff;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.AfterStep;
@@ -29,6 +32,9 @@ public class StepDef {
     private LoginPage loginPage;
     private TitleMaster titleMaster;
     private ProjectPulseLoginPage ppLogin;
+    private expense ppExpense;
+    private Project ppProject;
+    private staff ppStaff;
     private String workbookName;
     private String sheetName;
     private String testCaseNumber;
@@ -41,6 +47,9 @@ public class StepDef {
         loginPage = new LoginPage(driver); // Initializing LoginPage object
         titleMaster = new TitleMaster(driver);
         ppLogin = new ProjectPulseLoginPage(driver);
+        ppExpense = new expense(driver);
+        ppStaff = new staff(driver);
+        ppProject = new Project(driver);
     }
 
     @After
@@ -76,6 +85,16 @@ public class StepDef {
         String password = testCaseData.get("password");
         ppLogin.enterUsernameAndPassword(username, password);
     }
+    @When("Login with password for the test case {string}")
+    public void Login_pass(String TestCaseId) {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+       // String username = testCaseData.get("username");
+        String password = testCaseData.get("password");
+        ppLogin.enterPassword(password);
+    }
     @When("Enter the values to the fields {string}")
     public void UpdateFields(String TestCaseId) throws InterruptedException {
     	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
@@ -100,6 +119,15 @@ public class StepDef {
     public void Click_LoginButton() {
         ppLogin.click_Login();
     }
+    @Then("Click ClickMeButton")
+    public void Click_ClickMeButton() {
+        ppLogin.click_ClickMe();
+    }
+    @Then("Select Owner")
+    public void select_owner() {
+        ppLogin.select_owner();
+    }
+    
     
 
     @Given("Select Branch {string}")
@@ -224,7 +252,7 @@ public class StepDef {
     
     @Given("I am on Project Pulse Page")
     public void I_am_on_Project_Pulse() {
-        driver.get("https://uat.ctleng.com/sachinalite/signin.do");
+        driver.get("https://uat.ctleng.com/sachinalite/easylogin.do");
     }
     @Given("Select clinet and enter field values {string}")
     public void I_select_Client(String TestCaseId) throws InterruptedException {
@@ -236,7 +264,21 @@ public class StepDef {
        // ppLogin.check(testCaseData);
     	ppLogin.selectCleint(testCaseData);
     }
-    
+    @Given("Select project and enter field values {string}")
+    public void I_select_Project(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+      
+       // ppLogin.check(testCaseData);
+    	ppProject.selectProject(testCaseData);
+    }
+//    @Then("Select Save Button")
+//    public void Click_SaveButton() {
+//        ppLogin.click_Save();
+//    }
+//    
     
     @Given("Select record by search {string}")
     public void select_record_by_search(String TestCaseId) throws InterruptedException {
@@ -297,18 +339,24 @@ public class StepDef {
         String value = testCaseDataUpdate.get("clientName");
     	ppLogin.selectRecordBySearch_loc(value);
     }
+    @And("Make location activeToInactive and Delete")
+    public void activeToinactiveAndDelete_location()
+    {
+    	ppLogin.activeToinActive_emp();
+    }
     @Then("Select Save Button")
     public void Click_SaveButton() {
         ppLogin.click_Save();
     }
-    @Then("Select Save Button on employee screen")
-    public void Click_SaveButtonemployee() {
-        ppLogin.click_employeeSave();
-    }
+   
     
     @And("Select Update button")
     public void Click_UpdateButton() {
         ppLogin.click_Update();
+    }
+    @Then("Select Save Button on employee screen")
+    public void Click_SaveButtonemployee() {
+        ppLogin.click_employeeSave();
     }
     @And("Select employee Update button")
     public void Click_EmpUpdateButton() {
@@ -324,7 +372,7 @@ public class StepDef {
        // ppLogin.check(testCaseData);
     	ppLogin.selectemployee(testCaseData);
     }
-    @Given("Select record by search employee {string}")
+    @Given("Select record by employee {string}")
     public void select_record_by_search_emp(String TestCaseId) throws InterruptedException {
        // ppLogin.check(testCaseData);
     	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
@@ -351,7 +399,133 @@ public class StepDef {
             throw new RuntimeException("Test casfe not found: " + testCaseNumber);
         }
         String value = testCaseDataUpdate.get("firstName");
-    	ppLogin.selectRecordBySearch_emp(value);
+    	ppLogin.selectRecordBySearch(value);
     }
-
+    @And("Make emp activeToInactive and Delete")
+    public void activeToinactiveAndDelete()
+    {
+    	ppLogin.activeToinActive_emp();
+    }
+    @And("Make loc activeToInactive and Delete")
+    public void activeToinactiveAndDelete_loc()
+    {
+    	ppLogin.activeToinActive_loc();
+    }
+    //expense
+    @Given("Select expense and enter field values {string}")
+    public void I_select_expense(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+      
+       // ppLogin.check(testCaseData);
+        ppExpense.selectExpense(testCaseData);
+    }
+    @Then("Select Save on expense screen")
+    public void Click_SaveButtonExpense() {
+        ppExpense.click_ExpenseSave();
+    }
+    @Given("Select record by expense {string}")
+    public void select_record_by_search_expense(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("expense");
+        Thread.sleep(9000);
+    	ppExpense.selectRecordBySearch_expense(value);
+    }
+    @When("Update the expense values to the fields {string}")
+    public void UpdateFields_expense(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+       
+        ppExpense.updateExpense(testCaseDataUpdate);
+    }
+    @And("Select expense Update button")
+    public void Click_ExpUpdateButton() {
+        ppExpense.click_exp_Update();
+    }
+    @Given("Select expense by search and change active to non active and delete the record {string}")
+    public void I_select_expense_by_Search(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("expense");
+        Thread.sleep(9000);
+    	ppExpense.selectRecordBySearch_expense(value);
+    	
+    }
+    @And("Make expense activeToInactive and Delete")
+    public void activeToinactiveAndDelete_expense()
+    {
+    	ppExpense.activeToinActive_expense();
+    }
+    //staff
+    @Given("Select staff by search and change active to non active and delete the record {string}")
+    public void I_select_staff_by_Search(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("typecode");
+        Thread.sleep(9000);
+    	ppStaff.selectRecordBySearch_staff(value);
+    	
+    }
+    @Given("Select staff and enter field values {string}")
+    public void I_select_staff(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+      
+       // ppLogin.check(testCaseData);
+        ppStaff.selectStaff(testCaseData);
+    }
+    @Then("Select Save on staff screen")
+    public void Click_SaveButtonStaff() {
+    	ppStaff.click_StaffSave();
+    }
+    @Given("Select record by staff {string}")
+    public void select_record_by_search_staff(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("typecode");
+        Thread.sleep(9000);
+    	ppStaff.selectRecordBySearch_staff_update(value);
+    }
+    @When("Update the staff values to the fields {string}")
+    public void UpdateFields_staff(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+       
+        ppStaff.updateStaff(testCaseDataUpdate);
+    }
+    @And("Select staff Update button")
+    public void Click_StaffUpdateButton() {
+    	ppStaff.click_staff_Update();
+    }
+    @And("Make staff activeToInactive and Delete")
+    public void activeToinactiveAndDelete_staff()
+    {
+    	ppStaff.activeToinActive_staff();
+    }
+    @Then("Select save on Project")
+    public void Click_SaveButtonProject() {
+    	ppProject.click_ProjectSave();
+    }
+    
 }
