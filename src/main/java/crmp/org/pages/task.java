@@ -32,7 +32,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import io.cucumber.java.Scenario;
 
 
-public class staff {
+public class task {
 	
 	private WebDriver driver ;
 	
@@ -139,14 +139,11 @@ private String Expense_updateButton = "//input[@id='btnSave-lg']";
 //Xapth for Task 
 private String Task_userIcon = "//a[@id='navbarDropdownUser']";
 private String Task_Icon = "//a[contains(@class, 'nav-link') and contains(@href, 'taskcenter.do')]";
-private String Task_newTaskCreateButton = "//button[contains(@onclick, 'funCreateTask()')]";
+private String Task_newTaskCreateButton = "//button[contains(@onclick, 'funCreateTask()')][1]";
 private String Task_taskCode = "//input[@id='taskCode']";
 private String Task_taskDescription = "//input[@id='task']";
 private String Task_Save = "//button[@id='btnSave-lg']";
-private String Task_list_link = "//td[@class='align-middle white-space-nowrap deadline ps-3 sorting_1']//a[contains(text(),'LOCATION')]";
-private String Task_Status ="//input[contains(@id, 'taskIsActive')]";
-
-private String Task_updateButton = "//button[@id='btnSave-sm']";
+private String Staff_list_link = "//td[@class='align-middle white-space-nowrap deadline ps-3 sorting_1']//a[contains(text(),'LOCATION')]";
 //Xpath for Staff
 private String Staff_userIcon = "//a[@id='navbarDropdownUser']";
 private String Staff_Icon = "//a[contains(@class, 'nav-link') and contains(@href, 'stafftypecenter.do')]";
@@ -161,7 +158,7 @@ private String Staff_updateButton = "//button[@id='btnSave-sm']";
 private String Staff_Status = "//input[contains(@id, 'staffTypeIsActive')]";
 
 	//COnsturctor
-	public staff(WebDriver driver)
+	public task(WebDriver driver)
 	{
 		this.driver = driver;
 		
@@ -758,5 +755,41 @@ private String Staff_Status = "//input[contains(@id, 'staffTypeIsActive')]";
 	    	//waitForElementAndClickUsingJS(By.xpath(deleteIcon));
 	    	captureScreenshot("Deleted Sucessfully");
 	    }
+		 public void selectTask(Map<String, String> map) throws InterruptedException {
+		    	//WebElement clienticon = waitForElementAndClickUsingJS(By.xpath(client));
+		    	//clienticon.click();
+		    	waitForElementAndClickUsingJS(By.xpath(Task_userIcon));
+		    	waitForElementAndClickUsingJS(By.xpath(Task_Icon));
+		    	//Thread.sleep(5000);
+		    	
+		    	waitForElementAndClickUsingJS(By.xpath(Task_newTaskCreateButton));
+		    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Task_taskCode), map.get("taskcode"));
+		    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(Task_taskDescription), map.get("description"));
+		    	
+		    	 captureScreenshot("Saved Staff");
+		    	
+		    	
+		    	
+		    	
+		    }
+		 public void click_TaskSave()
+			{
+			 
+			 waitForElementAndClickUsingJS(By.xpath(Staff_Save));
+				
+			        captureScreenshot("Save Button Clicked");
+			        
+			}
+		 public void selectRecordBySearch_task_update(String location)
+		    {
+		    	String name = location;
+		    	
+		    	waitForElementToBeVisibleAndInteractUsingJS(By.xpath(searchXpath),name);
+		    	String updatedExpenseList = Staff_list_link.replace("LOCATION", name);
+		    	waitForElementAndClickUsingJS(By.xpath(updatedExpenseList));
+		    	
+		    	
+		    	
+		    }
 }
 

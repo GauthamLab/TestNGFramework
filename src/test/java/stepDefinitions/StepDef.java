@@ -7,6 +7,7 @@ import crmp.org.util.*;
 import crmp.org.pages.TitleMaster;
 import crmp.org.pages.expense;
 import crmp.org.pages.staff;
+import crmp.org.pages.task;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.AfterStep;
@@ -35,6 +36,7 @@ public class StepDef {
     private expense ppExpense;
     private Project ppProject;
     private staff ppStaff;
+    private task ppTask;
     private String workbookName;
     private String sheetName;
     private String testCaseNumber;
@@ -50,6 +52,8 @@ public class StepDef {
         ppExpense = new expense(driver);
         ppStaff = new staff(driver);
         ppProject = new Project(driver);
+        ppTask = new task(driver);
+        
     }
 
     @After
@@ -526,6 +530,31 @@ public class StepDef {
     @Then("Select save on Project")
     public void Click_SaveButtonProject() {
     	ppProject.click_ProjectSave();
+    }
+    @Given("Select task and enter field values {string}")
+    public void I_select_task(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+      
+       // ppLogin.check(testCaseData);
+        ppTask.selectTask(testCaseData);
+    }
+    @Then("Select Save on task screen")
+    public void Click_SaveButtonTask() {
+    	ppTask.click_TaskSave();
+    }
+    @Given("Select record by task {string}")
+    public void select_record_by_search_task(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("typecode");
+        Thread.sleep(9000);
+    	ppTask.selectRecordBySearch_staff_update(value);
     }
     
 }
