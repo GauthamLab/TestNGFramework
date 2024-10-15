@@ -552,9 +552,50 @@ public class StepDef {
         if (testCaseDataUpdate == null) {
             throw new RuntimeException("Test casfe not found: " + testCaseNumber);
         }
-        String value = testCaseDataUpdate.get("typecode");
+        String value = testCaseDataUpdate.get("taskcode");
         Thread.sleep(9000);
-    	ppTask.selectRecordBySearch_staff_update(value);
+    	ppTask.selectRecordBySearch_task_update(value);
+    }
+//    @When("Update the task values to the fields {string}")
+//    public void UpdateFields_task(String TestCaseId) throws InterruptedException {
+//    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+//        if (testCaseDataUpdate == null) {
+//            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+//        }
+//       
+//        ppTask.updateTask(testCaseDataUpdate);
+//    }
+    @Given("Update the task values to the fields {string}")
+    public void update_Task(String TestCaseId) throws InterruptedException {
+    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+        if (testCaseData == null) {
+            throw new RuntimeException("Test case not found: " + testCaseNumber);
+        }
+      
+       // ppLogin.check(testCaseData);
+        ppTask.updateTask(testCaseData);
+    }
+    @And("Select task Update button")
+    public void Click_TaskUpdateButton() {
+    	ppTask.click_task_Update();
+    	}
+    @Given("Select task by search and change active to non active and delete the record {string}")
+    public void I_select_task_by_Search(String TestCaseId) throws InterruptedException {
+       // ppLogin.check(testCaseData);
+    	Map<String, String> testCaseDataUpdate = excelData.get(testCaseNumber);
+        if (testCaseDataUpdate == null) {
+            throw new RuntimeException("Test casfe not found: " + testCaseNumber);
+        }
+        String value = testCaseDataUpdate.get("taskcode");
+        Thread.sleep(9000);
+    	ppTask.selectRecordBySearch_task(value);
+    	
+    }
+    
+    @And("Make task activeToInactive and Delete")
+    public void activeToinactiveAndDelete_task()
+    {
+    	ppTask.activeToinActive_task();
     }
     
 }

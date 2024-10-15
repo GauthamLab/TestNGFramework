@@ -1,10 +1,10 @@
 #Author: gautham murugappan  #C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData
-@projectPulseStaff
+@projectPulseTask
 Feature: Feature file to Check Employee Functionality
 
   @PPLoginEmp
   Scenario: Load data from Excel workbook
-    Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Staff"
+    Given I load the Excel workbook "C:\Users\Rajesh\git\TestNGFramework\src\test\resources\testData\ProjectPulse.xlsx" and sheet "Task"
 
   @PPLoginEmp
   Scenario Outline: Login to Application
@@ -18,27 +18,27 @@ Feature: Feature file to Check Employee Functionality
       | TestCaseId |
       | TC_001     |
 
-  @PPClient
+  @PPClients
   Scenario Outline: Navigate to Location section and add location
     Given Select task and enter field values "<TestCaseId>"
-    Then Select Save on staff screen
+    Then Select Save on task screen
 
     Examples: 
       | TestCaseId |
       | TC_002     |
 
   Scenario Outline: Navigate to emp section and select update and close
-    Given Select record by staff "<TestCaseId>"
-    And Update the staff values to the fields "<TestCaseId>"
-    And Select staff Update button
+    Given Select record by task "<TestCaseId>"
+    And Update the task values to the fields "<TestCaseId>"
+    And Select task Update button
 
     Examples: 
       | TestCaseId |
       | TC_003     |
 
   Scenario Outline: Search For certain emp and chnage the status from active to non active
-    Given Select staff by search and change active to non active and delete the record "<TestCaseId>"
-    And Make staff activeToInactive and Delete
+    Given Select task by search and change active to non active and delete the record "<TestCaseId>"
+    And Make task activeToInactive and Delete
 
     Examples: 
       | TestCaseId |

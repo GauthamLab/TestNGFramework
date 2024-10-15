@@ -748,7 +748,8 @@ private String Staff_Status = "//input[contains(@id, 'staffTypeIsActive')]";
 		        captureScreenshot("Update Button Clicked");
 			
 
-		}public void activeToinActive_staff()
+		}
+	 public void activeToinActive_staff()
 	    {
 	    	
 	    	waitForElementAndClickUsingJS(By.xpath(Staff_Status));
