@@ -49,7 +49,7 @@ public class dataHelper {
             for (int i = 0; i < headers.length; i++) {
                 rowData.put(headers[i], formatter.formatCellValue(row.getCell(i)));
             }
-            data.put(rowData.get("TestCaseNumber"), rowData);
+            data.put(rowData.get("TestCaseId"), rowData);
         }
         workbook.close();
         fis.close();
@@ -160,8 +160,8 @@ public class dataHelper {
         jsExecutor.executeScript("arguments[0].click();", element);
     }
 
-    public void waitForElementToBeVisibleAndClick(By locator, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+    public static void waitForElementToBeVisibleAndClick(By locator, WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(300));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
     }
@@ -173,7 +173,7 @@ public class dataHelper {
     }
 
     // Helper method to click an element
-    public void clickElement(WebElement element, WebDriver driver) {
+    public static void clickElement(WebElement element, WebDriver driver) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].click();", element);
     }

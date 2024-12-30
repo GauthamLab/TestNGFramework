@@ -6,6 +6,7 @@ import crmp.org.pages.ProjectPulseLoginPage;
 import crmp.org.util.*;
 import crmp.org.pages.TitleMaster;
 import crmp.org.pages.expense;
+import crmp.org.pages.newCTLPage;
 import crmp.org.pages.staff;
 import crmp.org.pages.task;
 import io.cucumber.java.After;
@@ -37,6 +38,7 @@ public class StepDef {
     private Project ppProject;
     private staff ppStaff;
     private task ppTask;
+    private newCTLPage CTLPage;
     private String workbookName;
     private String sheetName;
     private String testCaseNumber;
@@ -53,6 +55,7 @@ public class StepDef {
         ppStaff = new staff(driver);
         ppProject = new Project(driver);
         ppTask = new task(driver);
+        CTLPage = new newCTLPage(driver);
         
     }
 
@@ -81,13 +84,13 @@ public class StepDef {
 
     @When("Login with username and password for the test case {string}")
     public void Login(String TestCaseId) {
-    	Map<String, String> testCaseData = excelData.get(testCaseNumber);
+    	Map<String, String> testCaseData = excelData.get(TestCaseId);
         if (testCaseData == null) {
-            throw new RuntimeException("Test case not found: " + testCaseNumber);
+            throw new RuntimeException("Test case not found: " + TestCaseId);
         }
         String username = testCaseData.get("username");
         String password = testCaseData.get("password");
-        ppLogin.enterUsernameAndPassword(username, password);
+        CTLPage.enterUsernameAndPassword(username, password);
     }
     @When("Login with password for the test case {string}")
     public void Login_pass(String TestCaseId) {
@@ -121,7 +124,15 @@ public class StepDef {
 
     @Then("Click LoginButton")
     public void Click_LoginButton() {
-        ppLogin.click_Login();
+        CTLPage.click_Login();
+    } 
+    @Then("Search for Employee{string}")
+    public void search_Employee(String employee) throws InterruptedException {
+        CTLPage.search_Employee(employee);
+    }
+    @And("Select BMD and select manage proposal")
+    public void select_BMD() {
+    	CTLPage.select_BMD();
     }
     @Then("Click ClickMeButton")
     public void Click_ClickMeButton() {
@@ -131,6 +142,7 @@ public class StepDef {
     public void select_owner() {
         ppLogin.select_owner();
     }
+   
     
     
 
@@ -256,7 +268,7 @@ public class StepDef {
     
     @Given("I am on Project Pulse Page")
     public void I_am_on_Project_Pulse() {
-        driver.get("https://uat.ctleng.com/sachinalite/easylogin.do");
+        driver.get("https://uat.ctleng.com/smartapps/easylogin.do");
     }
     @Given("Select clinet and enter field values {string}")
     public void I_select_Client(String TestCaseId) throws InterruptedException {
@@ -598,4 +610,13 @@ public class StepDef {
     	ppTask.activeToinActive_task();
     }
     
+    @Given("I am on login page")
+    public void I_am_on_login_page() {
+        driver.get("https://uat.ctleng.com/smartapps/easylogin.do");
+        driver.manage().window().maximize();
+    }
+    @Then("Click LoginButton on new app")
+    public void Click_LoginButton_newApp() {
+        ppLogin.click_Login();
+    }
 }
