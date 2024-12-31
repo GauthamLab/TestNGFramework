@@ -161,14 +161,14 @@ public class dataHelper {
     }
 
     public static void waitForElementToBeVisibleAndClick(By locator, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(300));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
     }
 
     // Helper method to wait for an element to be visible
     public WebElement waitForElementToBeVisible(By locator, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3000));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 

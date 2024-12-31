@@ -131,7 +131,7 @@ public class StepDef {
         CTLPage.search_Employee(employee);
     }
     @And("Select BMD and select manage proposal")
-    public void select_BMD() {
+    public void select_BMD() throws InterruptedException {
     	CTLPage.select_BMD();
     }
     @Then("Click ClickMeButton")

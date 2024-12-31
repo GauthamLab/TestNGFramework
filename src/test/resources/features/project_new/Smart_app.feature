@@ -16,7 +16,7 @@ Feature: Feature file to add master and delete the existing master
 
     Examples: 
       | TestCaseId | Employee |
-      | TC_001     |        1 |
+      | TC_001     |     3710 |
 
   @addMasterDryRun
   Scenario Outline: INSERT

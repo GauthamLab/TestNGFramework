@@ -153,12 +153,19 @@ public class newCTLPage {
 //new page xpath 
 	private By Click_Me = By.xpath("//input[contains(@onclick, 'javascript:funCheckin()')]");
 	private By search_TextBox_Xpath = By.xpath("//input[@type='search']");
-	private By first_record_Xpath = By.xpath("//a[contains(@onclick,\"funLogin('ADMIN', 'CTL_MY_MANAGER')\")]");
+	private By first_record_Xpath = By.xpath("//a[contains(@onclick,\"funLogin('REY-C', 'REY-C')\")]");
 	private By ProceedToDashBoard_Xpath = By
 			.xpath("(//a[contains(@onclick,\"funProcess\") and contains(text(),\"Proceed to Dashboard\")])[1]");
 	private By AMD_Xpath = By.xpath("//a[span[contains(text(), 'BMD')]]");
-	private By Entries_Xpath = By.xpath("//li[@id='navChild52Entries']/a[contains(text(),'Entries')]");
-	private By manageProposal = By.xpath("//li[@id='navChild2ManageProposal']/a[contains(text(),'Manage Proposal')]");
+	private By Entries_Xpath = By.xpath("(//li[contains(@id, 'navChild')]/a[contains(text(), 'Entries')])[3]");
+	private By manageProposal = By.xpath("//li[contains(@id, 'ManageProposal')]/a[contains(text(), 'Manage Proposal')]");
+	private By search_option = By.xpath("//select[@id='searchType']/option[@value='Search']");
+	private By list_button = By.xpath("//input[@value='List']");
+	private By dropDown = By.xpath("(//i[@class='fa fa-angle-down'])[2]");
+	private By select_Dep = By.xpath("//ul[@id='branchlistdropdowns']//a[contains(@onclick,'13')]");
+	private By proposal_No = By.xpath("//a[contains(@onclick,'javascript:funLoadProposalInfo('40157')')]");
+	
+	
 	
 	// COnsturctor
 	public newCTLPage(WebDriver driver) {
@@ -292,11 +299,35 @@ public class newCTLPage {
 		captureScreenshot("Login Screen Loaded");
 
 	}
-	public void select_BMD()
+	public void select_BMD() throws InterruptedException
 	{
 		dataHelper.waitForElementToBeVisibleAndClick(AMD_Xpath, driver);
 		dataHelper.waitForElementToBeVisibleAndClick(Entries_Xpath, driver);
 		dataHelper.waitForElementToBeVisibleAndClick(manageProposal, driver);
+		String originalWindow = driver.getWindowHandle();
+		String desiredWindowTitle = "Proposal :: Management ";
+		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		//wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+		// Get all the window handles
+		Set<String> allWindows = driver.getWindowHandles();
+
+		// Switch to the new tab
+		for (String windowHandle : allWindows) {
+			driver.switchTo().window(windowHandle);
+			if (driver.getTitle().equals(desiredWindowTitle)) {
+				System.out.println("Switched to the desired window: " + driver.getTitle());
+				break;
+			}
+		}
+		
+		dataHelper.waitForElementToBeVisibleAndClick(dropDown, driver);
+		dataHelper.waitForElementToBeVisibleAndClick(select_Dep, driver);
+		Thread.sleep(5000);
+		dataHelper.waitForElementToBeVisibleAndClick(search_option, driver);
+		dataHelper.waitForElementToBeVisibleAndClick(list_button, driver);
+		dataHelper.waitForElementToBeVisibleAndClick(proposal_No, driver);
+		
 	}
 
 	public void search_Employee(String employee) throws InterruptedException {
