@@ -158,12 +158,17 @@ public class newCTLPage {
 			.xpath("(//a[contains(@onclick,\"funProcess\") and contains(text(),\"Proceed to Dashboard\")])[1]");
 	private By AMD_Xpath = By.xpath("//a[span[contains(text(), 'BMD')]]");
 	private By Entries_Xpath = By.xpath("(//li[contains(@id, 'navChild')]/a[contains(text(), 'Entries')])[3]");
+	private By settings_Button_xpath = By.xpath("//a[@id='btnSettings']");
 	private By manageProposal = By.xpath("//li[contains(@id, 'ManageProposal')]/a[contains(text(), 'Manage Proposal')]");
 	private By search_option = By.xpath("//select[@id='searchType']/option[@value='Search']");
 	private By list_button = By.xpath("//input[@value='List']");
 	private By dropDown = By.xpath("(//i[@class='fa fa-angle-down'])[2]");
 	private By select_Dep = By.xpath("//ul[@id='branchlistdropdowns']//a[contains(@onclick,'13')]");
-	private By proposal_No = By.xpath("//a[contains(@onclick,'javascript:funLoadProposalInfo('40157')')]");
+	private By proposal_No = By.xpath("//a[@id='spanProposalEssentials40164']");
+	//private WebElement proposal_Noxapth = By.xpath("//a[contains(@onclick,'javascript:funLoadProposalInfo('40164'))]");
+	private   By secondLinkLocator = By.xpath("//a[contains(@onclick,'javascript:funEditReviseEstimation(40164)')]");
+	private   By equipment_button = By.xpath("//button[text()='Equipment']");
+	
 	
 	
 	
@@ -320,13 +325,23 @@ public class newCTLPage {
 				break;
 			}
 		}
-		
+		Thread.sleep(5000);
 		dataHelper.waitForElementToBeVisibleAndClick(dropDown, driver);
 		dataHelper.waitForElementToBeVisibleAndClick(select_Dep, driver);
 		Thread.sleep(5000);
 		dataHelper.waitForElementToBeVisibleAndClick(search_option, driver);
 		dataHelper.waitForElementToBeVisibleAndClick(list_button, driver);
-		dataHelper.waitForElementToBeVisibleAndClick(proposal_No, driver);
+		//dataHelper.waitForElementToBeVisibleAndClick(proposal_No, driver);
+		// Perform hover action on the first link
+		// Hover over the first link
+		Thread.sleep(5000);
+		dataHelper.hoverOverElement(proposal_No, driver);
+
+        // Wait for the second link to be visible and click it
+		dataHelper.waitForElementToBeVisibleAndClick(secondLinkLocator, driver);
+		Thread.sleep(5000);
+		dataHelper.waitForElementToBeVisibleAndClick(settings_Button_xpath, driver);
+		dataHelper.waitForElementToBeVisibleAndClick(equipment_button, driver);
 		
 	}
 

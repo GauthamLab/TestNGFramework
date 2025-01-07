@@ -13,6 +13,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -164,6 +165,18 @@ public class dataHelper {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5000));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.click();
+    }
+    
+    /**
+     * Reusable method to hover over an element.
+     *
+     * @param locator The By locator of the element to hover over.
+     * @param driver  The WebDriver instance.
+     */
+    public static void hoverOverElement(By locator, WebDriver driver) {
+        Actions actions = new Actions(driver);
+        WebElement element = driver.findElement(locator);
+        actions.moveToElement(element).perform();
     }
 
     // Helper method to wait for an element to be visible
